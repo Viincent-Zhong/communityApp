@@ -1,11 +1,18 @@
+require('dotenv').config();
+
 const express = require('express');
+const { PrismaClient } = require('@prisma/client')
 const app = express();
-const port = 4000;
+
+const prisma = new PrismaClient()
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  prisma.user.findMany().then((users) => {
+    res.json(users)
+  })
+  // res.send('Hello World!');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });

@@ -10,10 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@primevue/themes": "^4.0.5",
+    "dotenv": "^16.4.5",
     "nuxt": "^3.13.0",
+    "primevue": "^4.0.5",
     "vue": "latest"
   },
   "devDependencies": {
+    "@primevue/nuxt-module": "^4.0.5",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.43",
     "tailwindcss": "^3.4.10"
