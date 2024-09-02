@@ -5,26 +5,26 @@
         <!-- Form -->
         <div class="w-1/2 ml-auto my-auto z-10">
             <div class="w-full lg:w-1/2 bg-slate-50 border border-slate-400 flex flex-col space-y-4 p-10 mx-auto rounded-xl z-10">
-                <h1 class="text-slate-500 text-center text-3xl font-semibold"> {{login ? "Login" : "Register"}}</h1>
+                <h1 class="text-slate-500 text-center text-3xl font-semibold"> {{toggleLogin ? "Login" : "Register"}}</h1>
                 <div>
                     <label class="text-slate-500 font-medium">Email</label>
-                    <InputText class="w-full bg-gray-800"/>
+                    <InputText v-model="input.email" class="w-full bg-gray-800"/>
                 </div>
-                <div v-if="!login">
+                <div v-if="!toggleLogin">
                     <label class="text-slate-500 font-medium">Name</label>
-                    <InputText class="w-full bg-gray-800"/>
+                    <InputText v-model="input.name" class="w-full bg-gray-800"/>
                 </div>
                 <div>
                     <label class="text-slate-500 font-medium">Password</label>
-                    <Password v-model="input.password" class="w-full bg-gray-800 rounded-xl" input-class="w-full"/>
+                    <Password v-model="input.password" class="w-full bg-gray-800 rounded-xl" input-class="w-full" toggleMask/>
                 </div>
-                <div v-if="!login">
-                    <label class="text-slate-500 font-medium">Confirm password</label>
+                <div v-if="!toggleLogin">
+                    <label class="text-slate-500 font-medium" toggleMask>Confirm password</label>
                     <Password v-model="input.confirmPassword" class="w-full bg-gray-800 rounded-xl" input-class="w-full"/>
                 </div>
-                <Button class="w-full bg-slate-500 text-slate-50 mt-6" @click="onSubmit"> {{login ? "Login" : "Register"}} </Button>
-                <a href="" @click.prevent="toggleLogin" class="text-blue-500 hover:underline">
-                    {{ login ? "Already have an account?" : "Don't have an account?" }}
+                <Button class="w-full bg-slate-500 text-slate-50 mt-6" @click="onSubmit"> {{toggleLogin ? "Login" : "Register"}} </Button>
+                <a href="" @click.prevent="switchToggleLogin" class="text-blue-500 hover:underline">
+                    {{ toggleLogin ? "Already have an account?" : "Don't have an account?" }}
                 </a>
             </div>
         </div>
@@ -37,9 +37,12 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Password from "primevue/password";
 import { useToast } from 'primevue/usetoast';
+
+const { login, register } = useAuth();
 const toast = useToast()
 
-const login = ref(true);
+
+const toggleLogin = ref(true);
 const input = ref({
     name: "",
     email: "",
@@ -48,17 +51,17 @@ const input = ref({
 });
 
 const onSubmit = () => {
-    if (login.value) {
-        console.log("Login");
-        toast.add({severity:'success', summary: 'Success', detail: 'Login successful', life: 3000});
-    } else {
-        console.log(input.value);
+    if (toggleLogin.value) { // Login
+        login(input.value.email, input.value.password);
+    } else { // Register
+        if (!input.value.confirmPassword || (input.value.password !== input.value.confirmPassword))
+            return toast.add({severity:'error', summary: 'Error', detail: 'Passwords do not match', life: 3000});
+        register(input.value.email, input.value.name, input.value.password);
     }
-
 }
 
-const toggleLogin = () => {
-    login.value = !login.value;
+const switchToggleLogin = () => {
+    toggleLogin.value = !toggleLogin.value;
 }
 
 </script>
