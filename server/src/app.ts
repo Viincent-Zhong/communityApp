@@ -1,13 +1,11 @@
 require('dotenv').config();
 
-const express = require('express');
-const { PrismaClient } = require('@prisma/client')
+import express, { Request, Response } from 'express';
+import prisma from './prisma/client';
 const app = express();
 
-const prisma = new PrismaClient()
-
-app.get('/', (req, res) => {
-  prisma.user.findMany().then((users) => {
+app.get('/', (req: Request, res: Response) => {
+  prisma.user.findMany().then((users: any) => {
     res.json(users)
   })
   // res.send('Hello World!');
