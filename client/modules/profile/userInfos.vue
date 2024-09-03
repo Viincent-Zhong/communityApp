@@ -48,7 +48,7 @@ const toast = useToast()
 
 const switchToggleUpdate = () => {
     if (toggleUpdate.value) {
-        updateInfos(userInfos.name, userInfos.description);
+        updateInfos(userInfos.value.name, userInfos.value.description);
     }
     toggleUpdate.value = !toggleUpdate.value;
 }

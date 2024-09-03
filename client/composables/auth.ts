@@ -13,7 +13,8 @@ export const useAuth = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: 'include'
             } );
             toast.add({ severity: 'success', summary: 'Success', detail: 'Logged in successfully', life: 3000 });
             router.push('/home');
@@ -24,15 +25,15 @@ export const useAuth = () => {
 
     const register = async (email: string, name: string, password: string) => {
         try {
-        await $fetch(`${runtimeConfig.public.apiUrl}/auth/register`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, name, password })
-        } );
-        toast.add({ severity: 'success', summary: 'Success', detail: 'Registered successfully', life: 3000 });
-        router.push('/home');
+            await $fetch(`${runtimeConfig.public.apiUrl}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, name, password })
+            });
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Registered successfully', life: 3000 });
+            router.push('/home');
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
         }
