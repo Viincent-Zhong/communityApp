@@ -17,8 +17,46 @@ datasource db {
 // npx prisma migrate dev --name init
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String
+  password  String
+  description String @default("")
+
+  likeCounter Int @default(0) // Number of likes
+
+  chats     Chat[]    // All chats created by this user
+  othersComments  Comment[] @relation("Profile") // All comments created by others to this user
+  comments  Comment[] @relation("Creator") // All comments created by this user
+  createdAt DateTime  @default(now())
+}
+
+model Like {
+  id        Int       @id @default(autoincrement())
+  userId    Int // Me (who liked)
+  userLiked Int // You (Who got liked)
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comments  Comment[] // All comments on this chat
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  authorId Int
+  likes    Int @default(0)
+  createdBy User      @relation("Creator", fields: [createdById], references: [id])
+  createdById Int     // 
+  post      Chat?     @relation(fields: [postId], references: [id]) // Comment attached to a post
+  postId    Int?      // 
+  profile   User?     @relation("Profile", fields: [profileId], references: [id]) // Comment attached to a profile
+  profileId Int?      // 
+  createdAt DateTime  @default(now())
 }

@@ -41,7 +41,6 @@ import { useToast } from 'primevue/usetoast';
 const { login, register } = useAuth();
 const toast = useToast()
 
-
 const toggleLogin = ref(true);
 const input = ref({
     name: "",
