@@ -53,6 +53,8 @@ const switchToggleUpdate = () => {
     toggleUpdate.value = !toggleUpdate.value;
 }
 
+const { user } = useUser();
+
 const userInfos = ref({
     name: '',
     email: '',

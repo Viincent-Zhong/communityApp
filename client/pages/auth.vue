@@ -1,10 +1,10 @@
 <template>
     <div class="bg-gray-300 h-screen flex min-h-80">
         <!-- Background image -->
-        <img src="/images/auth-bg.jpg" alt="bg" class="absolute w-full h-full z-10"/>
+        <img src="/images/auth-bg.jpg" alt="bg" class="absolute w-full h-full"/>
         <!-- Form -->
         <div class="w-1/2 ml-auto my-auto z-10">
-            <div class="w-full lg:w-1/2 bg-slate-50 border border-slate-400 flex flex-col space-y-4 p-10 mx-auto rounded-xl z-10">
+            <div class="w-full lg:w-1/2 bg-slate-50 border border-slate-400 flex flex-col space-y-4 p-10 mx-auto rounded-xl">
                 <h1 class="text-slate-500 text-center text-3xl font-semibold"> {{toggleLogin ? "Login" : "Register"}}</h1>
                 <div>
                     <label class="text-slate-500 font-medium">Email</label>
@@ -37,6 +37,12 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Password from "primevue/password";
 import { useToast } from 'primevue/usetoast';
+
+definePageMeta({
+  title: "Auth",
+  description: "Auth",
+  layout: false,
+});
 
 const { login, register } = useAuth();
 const toast = useToast()

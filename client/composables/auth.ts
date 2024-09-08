@@ -17,7 +17,7 @@ export const useAuth = () => {
                 credentials: 'include'
             } );
             toast.add({ severity: 'success', summary: 'Success', detail: 'Logged in successfully', life: 3000 });
-            router.push('/home');
+            router.push('/');
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid email or password', life: 3000 });
         }
@@ -33,7 +33,7 @@ export const useAuth = () => {
                 body: JSON.stringify({ email, name, password })
             });
             toast.add({ severity: 'success', summary: 'Success', detail: 'Registered successfully', life: 3000 });
-            router.push('/home');
+            router.push('/');
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
         }

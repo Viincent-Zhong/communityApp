@@ -1,30 +1,44 @@
-import { useRuntimeConfig, useRouter } from '#app';
+import { useRuntimeConfig, useRouter} from '#app';
 import { useToast } from 'primevue/usetoast';
 
 export const useUser = () => {
     const toast = useToast()
     const runtimeConfig = useRuntimeConfig();
-    // const router = useRouter();
+    const router = useRouter();
+
+    type User = {
+        name: string;
+        email: string;
+        description: string;
+        likeCounter: number;
+    }
+    
+    const defaultUser : User = {
+        name: "",
+        email: "",
+        description: "",
+        likeCounter: 0,
+    }
+
     const user = useState("user", () => {
-        return {
-            name: "Vince le Z",
-            email: "vince@gmail.com",
-            description: "Hi I'm Vince a random user",
-            likes: 0,
-        };
+        return defaultUser;
     });
 
-    const getUser = async (name: string, email: string) => {
+    const loadUser = async () => {
         try {
-            await $fetch(`${runtimeConfig.public.apiUrl}/user`, {
+            const res : User = await $fetch(`${runtimeConfig.public.apiUrl}/user/`, {
                 method: 'GET',
-                include: 'credentials'
-            } );
-            toast.add({ severity: 'success', summary: 'Success', detail: 'User refreshed', life: 3000 });
+                credentials: 'include'
+            });
+            // Logged in
+            user.value = res;
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
+            // Not logged in
+            user.value = defaultUser;
+            router.push('/auth');
         }
-    };
+    }
 
-    return { user, getUser };
-};
+    return { user, loadUser }
+}

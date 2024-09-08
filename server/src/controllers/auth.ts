@@ -9,7 +9,7 @@ export const login = async (req: Request, res: Response) => {
     const authCookie = req.cookies.token;
 
     if (authCookie) {
-        return res.status(401).json({ message: 'Already logged in'});
+        return res.status(200).json({ message: 'Already logged in'});
     }
     const { email, password } = req.body;
 
@@ -40,7 +40,7 @@ export const login = async (req: Request, res: Response) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict'
         });
-        res.json({ message: 'Logged in' });
+        return res.json({ message: 'Logged in' });
     });
 }
 
@@ -85,7 +85,7 @@ export const register = async (req: Request, res: Response) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict'
         });
-        res.status(200).json({ message: 'User created' });
+        return res.status(200).json({ message: 'User created' });
     } catch(error) {
         return res.status(500).json({ message: 'Internal server error' });
     }
@@ -98,5 +98,5 @@ export const logout = async (req: Request, res: Response) => {
         return res.status(401).json({ message: 'Not logged in'});
     }
     res.clearCookie('token');
-    res.status(200).json({ message: 'Logged out' });
+    return res.status(200).json({ message: 'Logged out' });
 }
