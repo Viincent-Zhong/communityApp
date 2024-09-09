@@ -18,8 +18,10 @@ export const useAuth = () => {
             } );
             toast.add({ severity: 'success', summary: 'Success', detail: 'Logged in successfully', life: 3000 });
             router.push('/');
+            return true;
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid email or password', life: 3000 });
+            return false;
         }
     };
 
@@ -34,8 +36,10 @@ export const useAuth = () => {
             });
             toast.add({ severity: 'success', summary: 'Success', detail: 'Registered successfully', life: 3000 });
             router.push('/');
+            return true;
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
+            return false;
         }
     };
 
@@ -45,6 +49,7 @@ export const useAuth = () => {
             credentials: 'include'
         });
         router.push('/auth/');
+        return true;
     };
 
     return { login, register, logout };

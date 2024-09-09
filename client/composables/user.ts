@@ -32,11 +32,13 @@ export const useUser = () => {
             });
             // Logged in
             user.value = res;
+            return user;
         } catch (error) {
             toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
             // Not logged in
             user.value = defaultUser;
             router.push('/auth');
+            return user;
         }
     }
 
