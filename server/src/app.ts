@@ -2,6 +2,7 @@ require('dotenv').config();
 
 import express from 'express';
 import router from './routes/routes';
+import { debugMiddleware } from './middleware/debug';
 const cookieParser = require('cookie-parser')
 const cors = require("cors");
 
@@ -14,6 +15,8 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(debugMiddleware);
+
 app.use('/', router);
 
 app.listen(process.env.PORT, () => {
