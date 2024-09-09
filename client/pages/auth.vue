@@ -24,7 +24,7 @@
                 </div>
                 <Button class="w-full bg-slate-500 text-slate-50 mt-6" @click="onSubmit"> {{toggleLogin ? "Login" : "Register"}} </Button>
                 <a href="" @click.prevent="switchToggleLogin" class="text-blue-500 hover:underline">
-                    {{ toggleLogin ? "Already have an account?" : "Don't have an account?" }}
+                    {{ toggleLogin ? "Don't have an account?" : "Already have an account?" }}
                 </a>
             </div>
         </div>
