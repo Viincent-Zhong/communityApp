@@ -9,6 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import Header from '~/modules/profile/header.vue'
+import Header from '~/modules/header/header.vue'
 
 </script>
