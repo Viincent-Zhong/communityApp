@@ -12,6 +12,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.4",
     "@primevue/themes": "^4.0.5",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "nuxt": "^3.13.0",
     "primeicons": "^7.0.0",
