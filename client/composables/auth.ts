@@ -44,7 +44,7 @@ export const useAuth = () => {
             method: 'POST',
             credentials: 'include'
         });
-        router.push('/auth/login');
+        router.push('/auth/');
     };
 
     return { login, register, logout };

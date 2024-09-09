@@ -9,17 +9,22 @@ export const getUser = async (req: Request, res: Response) => {
     if (!authCookie) {
         return res.status(401).json({ message: 'Not logged in' });
     }
-    const userData : any = jwt.verify(authCookie, JWT_SECRET);
-    const user = await prisma.user.findUnique({
-        where: {
-            id: userData.id
-        },
-        select: {
-            name: true,
-            email: true,
-            description: true,
-            likeCounter: true,
-        }
-    });
-    return res.status(200).json(user);
+    try {
+        const userData : any = jwt.verify(authCookie, JWT_SECRET);
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userData.id
+            },
+            select: {
+                name: true,
+                email: true,
+                description: true,
+                likeCounter: true,
+            }
+        });
+        return res.status(200).json(user);
+    } catch (error) {
+        res.clearCookie('token');
+        return res.status(401).json({ message: 'Invalid token' });
+    }
 }

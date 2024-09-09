@@ -10,12 +10,6 @@ const { user, loadUser } = useUser();
 
 onMounted(async () => {
   await loadUser();
-
-  // User logged in ?
-
-    if (!user.value.name) {
-      navigateTo("/auth");
-    }
 });
 
 </script>

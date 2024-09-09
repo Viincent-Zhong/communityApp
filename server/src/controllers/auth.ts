@@ -92,8 +92,7 @@ export const register = async (req: Request, res: Response) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 3600000
+            sameSite: 'strict'
         });
         return res.status(200).json({ message: 'User created' });
     } catch(error) {

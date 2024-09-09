@@ -64,6 +64,7 @@ const userInfos = ref({
 });
 
 onMounted(() => {
+    console.log('Infos : ', props.user);
     userInfos.value.name = props.user.name;
     userInfos.value.email = props.user.email;
     userInfos.value.description = props.user.description;

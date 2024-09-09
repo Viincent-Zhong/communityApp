@@ -18,7 +18,8 @@
             </div>
         </div>
 
-        <div class="ml-auto h-full w-24 flex flex-row justify-end mr-10">
+        <div class="ml-auto h-full w-24 flex flex-row items-center justify-end mr-10">
+            <h1 class="select-none cursor-pointer w-24 mr-2 lg:mr-10 font-bold text-xl" @click="() => logout()"> Logout </h1>
             <img src="/images/default-pp.jpeg" alt="pp" class="h-full rounded-full cursor-pointer" @click="() => moveTo('/profile')"/>
         </div>
     </div>
@@ -28,6 +29,7 @@
 
 import { ref } from "vue";
 
+const { logout } = useAuth();
 const togglePost = ref(false);
 
 type PostMenu = {
@@ -43,7 +45,5 @@ const postMenus : PostMenu[] = ref([
 ]);
 
 const moveTo = (path: string) => { navigateTo(path) };
-// const postHover = () => { togglePost.value = true };
-// const postLeave = () => { togglePost.value = false };
 
 </script>
