@@ -95,8 +95,8 @@ model Comment {
   content   String
   likes     Int @default(0)
 
-  createdBy User      @relation("Creator", fields: [createdById], references: [id])
-  createdById Int     // 
+  author User      @relation("Creator", fields: [authorId], references: [id])
+  authorId Int     // 
 
   chat      Chat?     @relation(fields: [chatId], references: [id]) // Comment attached to a chat
   chatId    Int?      // 
