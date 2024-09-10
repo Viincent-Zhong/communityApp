@@ -24,7 +24,7 @@
       <!-- Add comment -->
       <div class="w-full flex flex-col ml-6">
         <Textarea v-model="comment" class="w-[90%] rounded h-28 p-4 text-xl text-slate-100 font-mono" placeholder="Add a comment..."/>
-        <div class="w-24 lg:w-32 mt-2 p-2 lg:p-4 bg-amber-500 rounded-md cursor-pointer" @click="() => {createComment(comment)}">
+        <div class="w-24 lg:w-32 mt-2 p-2 lg:p-4 bg-amber-500 rounded-md cursor-pointer" @click="() => {handleCreateComment()}">
             <h1 class="select-none font-mono text-lg text-center text-zinc-800 "> Post </h1>
         </div>
       </div>
@@ -55,6 +55,7 @@
 
 import Textarea from 'primevue/textarea';
 import { ref } from 'vue';
+import { CommentType } from '~/composables/comments';
 
 const route = useRoute()
 const id = route.params.id as string
@@ -62,9 +63,16 @@ const id = route.params.id as string
 const comment = ref('')
 
 const { meetingRoom, getMeetingRoom } = useMeetingRoom();
-const { comments, createComment } = useComment();
+const { comments, createComment, getComments } = useComment();
+
+const handleCreateComment = async () => {
+  await createComment(comment.value, meetingRoom.value.id, CommentType.Meeting);
+  comment.value = '';
+  window.location.reload();
+}
 
 onMounted(async () => {
   await getMeetingRoom(id);
+  await getComments(meetingRoom.value.id, CommentType.Meeting);
 });
 </script>
