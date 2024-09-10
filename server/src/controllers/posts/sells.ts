@@ -10,9 +10,25 @@ export const createSells = async (req: Request, res: Response) => {
         return res.status(401).json({ message: 'Not logged in' });
     }
     try {
-        // User 
         const userData : any = jwt.verify(authCookie, JWT_SECRET);
-        // return res.json(chat);
+        const { title, content, date, item, price, quantity } = req.body;
+
+        if (!title || !content || !date || !item || !price || !quantity) {
+            return res.status(400).json({ message: 'Missing fields' });
+        }
+    
+        const sell = await prisma.sells.create({
+            data: {
+                title,
+                content,
+                authorId: userData.id,
+                date,
+                item,
+                price,
+                quantity
+            }
+        });
+        return res.status(200).json(sell);
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             res.clearCookie('token');
@@ -28,9 +44,10 @@ export const getSells = async (req: Request, res: Response) => {
         return res.status(401).json({ message: 'Not logged in' });
     }
     try {
-        // User 
-        const userData : any = jwt.verify(authCookie, JWT_SECRET);
-        // return res.json(chat);
+        jwt.verify(authCookie, JWT_SECRET);
+        const sells = await prisma.sells.findMany();
+
+        return res.status(200).json(sells);
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             res.clearCookie('token');
@@ -40,16 +57,21 @@ export const getSells = async (req: Request, res: Response) => {
     }
 };
 
-
 export const getSell = async (req: Request, res: Response) => {
     const authCookie = req.cookies.token;
     if (!authCookie) {
         return res.status(401).json({ message: 'Not logged in' });
     }
     try {
-        // User 
-        const userData : any = jwt.verify(authCookie, JWT_SECRET);
-        // return res.json(chat);
+        jwt.verify(authCookie, JWT_SECRET);
+        const sellId = parseInt(req.params.id);
+        
+        const sell = await prisma.sells.findUnique({
+            where: {
+                id: sellId
+            }
+        });
+        return res.status(200).json(sell);
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             res.clearCookie('token');

@@ -23,7 +23,7 @@
                 </div>
                 <!-- Submit button -->
                 <div class="w-full flex justify-end mt-4">
-                    <Button label="Create" @click="() => createMeetingRoom(roomName, description, date)"/>
+                    <Button label="Create" @click="() => createRoom()"/>
                 </div>
             </div>
         </Modal>
@@ -82,6 +82,11 @@ const closeCreateModal = () => {
 onMounted(async () => {
     await getMeetingRooms();
 });
+
+const createRoom = async () => {
+    await createMeetingRoom(roomName.value, description.value, date.value);
+    window.location.reload();
+}
 
 const toggleCreateModal = ref(false);
 const description = ref('');

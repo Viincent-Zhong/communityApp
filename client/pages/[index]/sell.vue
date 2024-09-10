@@ -33,7 +33,7 @@
                 </div>
                 <!-- Submit button -->
                 <div class="w-full flex justify-end mt-4">
-                    <Button label="Create" @click="() => createSellRoom(roomName, description, date, item, quantity, price)"/>
+                    <Button label="Create" @click="() => createRoom()"/>
                 </div>
             </div>
         </Modal>
@@ -97,6 +97,11 @@ const closeCreateModal = () => {
 onMounted(async () => {
     await getSellRooms();
 });
+
+const createRoom = async () => {
+    await createSellRoom(roomName.value, description.value, date.value, item.value, quantity.value, price.value);
+    window.location.reload();
+}
 
 const toggleCreateModal = ref(false);
 const description = ref('');
