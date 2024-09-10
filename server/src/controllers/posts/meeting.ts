@@ -61,8 +61,9 @@ export const getMeeting = async (req: Request, res: Response) => {
     }
     try {
         jwt.verify(authCookie, JWT_SECRET);
-        const meetingId = parseInt(req.params.id);
+        const meetingId = parseInt(req.query.id as string);
         
+        console.log(meetingId);
         const meeting = await prisma.meeting.findUnique({
             where: {
                 id: meetingId

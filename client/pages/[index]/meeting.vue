@@ -49,7 +49,7 @@
                             <!-- Room infos -->
                             <div class="w-full mt-10">
                                 <h1 class="w-full text-2xl underline font-mono text-zinc-800">Scheduled for {{ meetingRoom.date }}</h1>
-                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ meetingRoom.name }}</h1>
+                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ meetingRoom.title }}</h1>
                                 <p class="mt-10 text-xl text-zinc-800">{{ meetingRoom.content }}</p>
                             </div>
                     </li>

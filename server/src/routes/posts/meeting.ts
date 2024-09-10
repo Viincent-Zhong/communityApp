@@ -7,7 +7,7 @@ router.post('/meeting', createMeeting);
 
 router.get('/meeting', getMeetings);
 
-router.get('/meeting', getMeeting);
+router.get('/meeting-details', getMeeting);
 
 
 export default router;

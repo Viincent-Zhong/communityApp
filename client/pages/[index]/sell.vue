@@ -60,7 +60,7 @@
                             <div class="w-full mt-10">
                                 <h1 class="w-full text-3xl underline font-mono text-zinc-800">Selling {{sellRoom.quantity}} {{ sellRoom.item }} for {{ sellRoom.price }} usd</h1>
                                 <h1 class="mt-4 w-full text-2xl underline font-mono text-zinc-800">Scheduled for {{ sellRoom.date }}</h1>
-                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ sellRoom.name }}</h1>
+                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ sellRoom.title }}</h1>
                                 <p class="mt-10 text-xl text-zinc-800">{{ sellRoom.content }}</p>
                             </div>
                     </li>

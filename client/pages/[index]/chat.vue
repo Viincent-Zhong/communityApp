@@ -44,7 +44,7 @@
                             </div>
                             <!-- Room infos -->
                             <div class="w-full mt-10">
-                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ chatRoom.name }}</h1>
+                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ chatRoom.title }}</h1>
                                 <p class="mt-10 text-xl text-zinc-800">{{ chatRoom.content }}</p>
                             </div>
                     </li>

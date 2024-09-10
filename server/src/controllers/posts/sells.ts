@@ -64,7 +64,7 @@ export const getSell = async (req: Request, res: Response) => {
     }
     try {
         jwt.verify(authCookie, JWT_SECRET);
-        const sellId = parseInt(req.params.id);
+        const sellId = parseInt(req.query.id as string);
         
         const sell = await prisma.sells.findUnique({
             where: {

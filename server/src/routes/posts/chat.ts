@@ -7,6 +7,6 @@ router.post('/chat', createChat);
 
 router.get('/chat', getChats);
 
-router.get('/chat', getChat);
+router.get('/chat-details', getChat);
 
 export default router;

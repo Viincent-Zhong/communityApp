@@ -60,7 +60,7 @@ export const getChat = async (req: Request, res: Response) => {
     }
     try {
         jwt.verify(authCookie, JWT_SECRET);
-        const chatId = parseInt(req.params.id);
+        const chatId = parseInt(req.query.id as string);
         
         const chat = await prisma.chat.findUnique({
             where: {

@@ -7,6 +7,6 @@ router.post('/sells', createSells);
 
 router.get('/sells', getSells);
 
-router.get('/sells', getSell);
+router.get('/sell-details', getSell);
 
 export default router;
