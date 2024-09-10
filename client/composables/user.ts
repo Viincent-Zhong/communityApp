@@ -49,6 +49,7 @@ export const useUser = () => {
                 credentials: 'include'
             });
             // Logged in
+            console.log('Get user : ', res);
             user.value = res;
             return user;
         } catch (error) {

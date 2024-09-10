@@ -47,16 +47,25 @@ export const getComments = async (req: Request, res: Response) => {
         return res.status(401).json({ message: 'Not logged in' });
     }
     try {
-        jwt.verify(authCookie, JWT_SECRET);
+        const userData : any = jwt.verify(authCookie, JWT_SECRET);
         const id = parseInt(req.query.id as string);
         const type = parseInt(req.query.type as string);
         
-        const comments = await prisma.comment.findMany({
-            where: {
-                [CommentType[type].toLowerCase() + 'Id']: id
-            }
-        });
-        return res.status(200).json(comments);
+        if (!id || !type) {
+            const comments = await prisma.comment.findMany({
+                where: {
+                    profileId: userData.id
+                }
+            });
+            return res.status(200).json(comments);
+        } else {
+            const comments = await prisma.comment.findMany({
+                where: {
+                    [CommentType[type].toLowerCase() + 'Id']: id
+                }
+            });
+            return res.status(200).json(comments);
+        }
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             res.clearCookie('token');

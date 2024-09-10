@@ -60,5 +60,24 @@ export const useComment = () => {
         }
     }
 
-    return { comments, createComment, getComments }
+    const loadComments = async () => {
+        try {
+            const res: Comment[] = await $fetch( `${runtimeConfig.public.apiUrl}/comments`, {
+                credentials: 'include'
+            } );
+            comments.value = res;
+            comments.value.forEach(async (comment) => {
+                comment.createdAt = formatDate(comment.createdAt);
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${comment.authorId}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                })
+                comment.author = user.name;
+            });
+        } catch (error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Could not get comments', life: 3000 });
+        }
+    }
+
+    return { comments, createComment, getComments, loadComments }
 }
