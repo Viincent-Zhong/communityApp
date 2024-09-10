@@ -45,22 +45,23 @@
             </div>
             <div class="mt-10">
                 <ul>
-                    <li v-for="chatRoom in sellRooms" :key="chatRoom.id" class="w-[70%] p-4 lg:p-6 bg-slate-200 mb-10">
+                    <li v-for="sellRoom in sellRooms" :key="sellRoom.id" class="w-[70%] p-4 lg:p-6 bg-slate-200 mb-10"
+                    @click="() => {router.push(`/sell/${sellRoom.id}`)}">
                             <!-- Creator infos -->
                             <div class="flex flex-row items-center">
                                 <!-- Add redirection on pp to user profile -->
                                 <img src="/images/default-pp.jpeg" alt="pp" class="h-16 w-16 rounded-full cursor-pointer"/>
                                 <div class="ml-6">
-                                    <h1 class="text-3xl text-zinc-800">{{chatRoom.author}}</h1>
-                                    <p class="text-lg font-thin text-zinc-800">{{chatRoom.createdAt}}</p>
+                                    <h1 class="text-3xl text-zinc-800">{{sellRoom.author}}</h1>
+                                    <p class="text-lg font-thin text-zinc-800">{{sellRoom.createdAt}}</p>
                                 </div>
                             </div>
                             <!-- Room infos -->
                             <div class="w-full mt-10">
-                                <h1 class="w-full text-3xl underline font-mono text-zinc-800">Selling {{chatRoom.quantity}} {{ chatRoom.item }} for {{ chatRoom.price }} usd</h1>
-                                <h1 class="mt-4 w-full text-2xl underline font-mono text-zinc-800">Scheduled for {{ chatRoom.date }}</h1>
-                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ chatRoom.name }}</h1>
-                                <p class="mt-10 text-xl text-zinc-800">{{ chatRoom.content }}</p>
+                                <h1 class="w-full text-3xl underline font-mono text-zinc-800">Selling {{sellRoom.quantity}} {{ sellRoom.item }} for {{ sellRoom.price }} usd</h1>
+                                <h1 class="mt-4 w-full text-2xl underline font-mono text-zinc-800">Scheduled for {{ sellRoom.date }}</h1>
+                                <h1 class="w-full text-center text-5xl font-mono text-zinc-800">{{ sellRoom.name }}</h1>
+                                <p class="mt-10 text-xl text-zinc-800">{{ sellRoom.content }}</p>
                             </div>
                     </li>
                 </ul>
@@ -78,7 +79,9 @@ import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
 import DatePicker from 'primevue/datepicker';
+import { useRouter } from '#app';
 
+const router = useRouter();
 const { sellRooms, createSellRoom, getSellRooms } = useSellRoom();
 
 const closeCreateModal = () => {

@@ -15,25 +15,46 @@ export const useChatRoom = () => {
         createdAt: string;
     }
 
-    const defaultChatsRooms = [
-        {id: 12, authorId: 1234, author: 'Vince', name: 'room1', content: 'content1', createdAt: '2021-09-01'},
-        {id: 12, authorId: 1234, author: 'Vince', name: 'room1', content: 'content1', createdAt: '2021-09-01'},
-        {id: 12, authorId: 1234, author: 'Vince', name: 'room1', content: 'content1', createdAt: '2021-09-01'},
-        {id: 12, authorId: 1234, author: 'Vince', name: 'room1', content: 'content1', createdAt: '2021-09-01'},
-
-    ];
-
     const chatsRooms = useState<ChatRoom[]>("chats", () => {
-        return defaultChatsRooms;
+        return [];
     });
 
     const createChatRoom = async (roomName: string, content: string) => {
-        toast.add({ severity: 'success', summary: 'Success', detail: 'Chat room created', life: 3000 });
-        console.log('createChat ', roomName, content);
+        try {
+            await $fetch( `${runtimeConfig.public.apiUrl}/posts/chat`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title: roomName, content }),
+                credentials: 'include'
+            } );
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Chat room created', life: 3000 });
+        } catch (error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to create room', life: 3000 });
+        }
         return;
     };
 
     const getChatsRooms = async () => {
+        try {
+            const res : ChatRoom[] = await $fetch(`${runtimeConfig.public.apiUrl}/posts/chat`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+            chatsRooms.value = res;
+            chatsRooms.value.forEach(async (chat) => {
+                chat.createdAt = formatDate(chat.createdAt);
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${chat.authorId}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                })
+                chat.author = user.name;
+            });
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Chat rooms loaded', life: 3000 });
+        } catch(error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to load rooms', life: 3000 });
+        }
         return chatsRooms;
     };
 

@@ -19,7 +19,7 @@
                 </div>
                 <!-- Submit button -->
                 <div class="w-full flex justify-end mt-4">
-                    <Button label="Create" @click="() => createChatRoom(roomName, description)"/>
+                    <Button label="Create" @click="() => createRoom()"/>
                 </div>
             </div>
         </Modal>
@@ -31,7 +31,8 @@
             </div>
             <div class="mt-10">
                 <ul>
-                    <li v-for="chatRoom in chatsRooms" :key="chatRoom.id" class="w-[70%] p-4 lg:p-6 bg-slate-200 mb-10">
+                    <li v-for="chatRoom in chatsRooms" :key="chatRoom.id" class="w-[70%] p-4 lg:p-6 bg-slate-200 mb-10"
+                    @click="() => {router.push(`/chat/${chatRoom.id}`)}">
                             <!-- Creator infos -->
                             <div class="flex flex-row items-center">
                                 <!-- Add redirection on pp to user profile -->
@@ -60,7 +61,9 @@ import { ref } from "vue";
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
+import { useRouter } from '#app';
 
+const router = useRouter();
 const { chatsRooms, createChatRoom, getChatsRooms } = useChatRoom();
 
 const closeCreateModal = () => {
@@ -72,6 +75,11 @@ const closeCreateModal = () => {
 onMounted(async () => {
     await getChatsRooms();
 });
+
+const createRoom = async () => {
+    await createChatRoom(roomName.value, description.value);
+    window.location.reload();
+}
 
 const toggleCreateModal = ref(false);
 const description = ref('');

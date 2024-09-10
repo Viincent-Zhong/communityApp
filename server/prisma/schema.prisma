@@ -28,6 +28,9 @@ model User {
   likeCounter Int @default(0) // Number of likes
 
   chats     Chat[]    // All chats created by this user
+  meetings  Meeting[] // All meetings created by this user
+  sells     Sells[]   // All sells created by this user
+
   othersComments  Comment[] @relation("Profile") // All comments created by others to this user
   comments  Comment[] @relation("Creator") // All comments created by this user
   createdAt DateTime  @default(now())
@@ -52,6 +55,40 @@ model Chat {
   createdAt DateTime  @default(now())
 }
 
+model Meeting {
+  id        Int @id @default(autoincrement())
+
+  title     String
+  content   String
+
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+
+  date      String
+
+  comments  Comment[] // All comments on this chat
+  createdAt DateTime  @default(now())
+}
+
+model Sells {
+  id        Int @id @default(autoincrement())
+
+  title     String
+  content   String
+
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+
+  date      String
+
+  item      String
+  quantity  Int
+  price     Int
+
+  comments  Comment[] // All comments on this chat
+  createdAt DateTime  @default(now())
+}
+
 model Comment {
   id        Int @id @default(autoincrement())
   
@@ -61,8 +98,14 @@ model Comment {
   createdBy User      @relation("Creator", fields: [createdById], references: [id])
   createdById Int     // 
 
-  post      Chat?     @relation(fields: [postId], references: [id]) // Comment attached to a post
-  postId    Int?      // 
+  chat      Chat?     @relation(fields: [chatId], references: [id]) // Comment attached to a chat
+  chatId    Int?      // 
+
+  meeting      Meeting?     @relation(fields: [meetingId], references: [id]) // Comment attached to a meeting
+  meetingId    Int?      // 
+
+  sells      Sells?     @relation(fields: [sellsId], references: [id]) // Comment attached to a sells
+  sellsId    Int?      // 
 
   profile   User?     @relation("Profile", fields: [profileId], references: [id]) // Comment attached to a profile
   profileId Int?      // 
