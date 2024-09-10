@@ -40,7 +40,7 @@
                             <!-- Creator infos -->
                             <div class="flex flex-row items-center">
                                 <!-- Add redirection on pp to user profile -->
-                                <img src="/images/default-pp.jpeg" alt="pp" class="h-16 w-16 rounded-full cursor-pointer"/>
+                                <img src="/images/default-pp.jpeg" alt="pp" class="h-16 w-16 rounded-full cursor-pointer" @click="() => {router.push('/profile/' + meetingRoom.authorId)}"/>
                                 <div class="ml-6">
                                     <h1 class="text-3xl text-zinc-800">{{meetingRoom.author}}</h1>
                                     <p class="text-lg font-thin text-zinc-800">{{meetingRoom.createdAt}}</p>

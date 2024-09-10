@@ -4,7 +4,7 @@
       <!-- Chat room info -->
       <div class="flex flex-row items-center">
         <!-- Add redirection on pp to user profile -->
-        <img src="/images/default-pp.jpeg" alt="pp" class="h-24 w-24 rounded-full cursor-pointer"/>
+        <img src="/images/default-pp.jpeg" alt="pp" class="h-24 w-24 rounded-full cursor-pointer" @click="() => {router.push('/profile/' + chatRoom.authorId)}"/>
         <div class="ml-6">
           <h1 class="text-3xl text-zinc-800">{{chatRoom.author}}</h1>
           <p class="text-lg font-thin text-zinc-800">{{chatRoom.createdAt}}</p>
@@ -38,7 +38,7 @@
       <div class="w-full flex flex-col ml-6">
         <div v-for="comment in comments" :key="comment.id" class="w-[90%] bg-slate-300 p-4 rounded-md my-4">
           <div class="flex flex-row items-center">
-            <img src="/images/default-pp.jpeg" alt="pp" class="h-14 w-14 rounded-full cursor-pointer"/>
+            <img src="/images/default-pp.jpeg" alt="pp" class="h-14 w-14 rounded-full cursor-pointer" @click="() => {router.push('/profile/' + comment.authorId)}"/>
             <div class="ml-4 text-zinc-800">
               <h1 class="text-2xl font-bold">{{ comment.author }}</h1>
               <p class="text-lg font-thin">{{ comment.createdAt }}</p>
@@ -56,6 +56,9 @@
 import Textarea from 'primevue/textarea';
 import { ref } from 'vue';
 import { CommentType } from '~/composables/comments';
+import { useRouter } from '#app';
+
+const router = useRouter();
 
 const route = useRoute()
 const id = route.params.id as string
