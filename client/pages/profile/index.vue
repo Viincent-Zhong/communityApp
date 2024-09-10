@@ -72,12 +72,12 @@ const updateInfos= (name: string, description: string) => {
 }
 
 const { user, loadUser } = useUser();
-const { comments, getComments } = useComment();
+const { comments, loadComments } = useComment();
 
 
 onMounted(async () => {
-    await loadUser;
-    // await getComments(parseInt(id), CommentType.Profile);
+    await loadUser();
+    await loadComments();
 });
 
 </script>
