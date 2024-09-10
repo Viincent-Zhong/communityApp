@@ -39,7 +39,7 @@ export const getUserFromId = async (req: Request, res: Response) => {
     }
     try {
         jwt.verify(authCookie, JWT_SECRET);
-        const userId = parseInt(req.params.id);
+        const userId = parseInt(req.query.id as string);
 
         const user = await prisma.user.findUnique({
             where: {

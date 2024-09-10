@@ -42,5 +42,21 @@ export const useUser = () => {
         }
     }
 
-    return { user, loadUser }
+    const getUser = async (id: id) => {
+        try {
+            const res : User = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${id}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+            // Logged in
+            user.value = res;
+            return user;
+        } catch (error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
+            user.value = defaultUser;
+            return user;
+        }
+    }
+
+    return { user, loadUser, getUser }
 }

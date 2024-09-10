@@ -67,7 +67,7 @@ export const useChatRoom = () => {
             chatsRooms.value = res;
             chatsRooms.value.forEach(async (chat) => {
                 chat.createdAt = formatDate(chat.createdAt);
-                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${chat.authorId}`, {
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${chat.authorId}`, {
                     method: 'GET',
                     credentials: 'include',
                 })
@@ -88,7 +88,7 @@ export const useChatRoom = () => {
             });
             chatRoom.value = res;
             chatRoom.value.createdAt = formatDate(chatRoom.value.createdAt);
-            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${chatRoom.value.authorId}`, {
+            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${chatRoom.value.authorId}`, {
                 method: 'GET',
                 credentials: 'include',
             })
@@ -171,7 +171,7 @@ export const useMeetingRoom = () => {
             meetingRooms.value = res;
             meetingRooms.value.forEach(async (meeting) => {
                 meeting.createdAt = formatDate(meeting.createdAt);
-                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${meeting.authorId}`, {
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${meeting.authorId}`, {
                     method: 'GET',
                     credentials: 'include',
                 })
@@ -192,7 +192,7 @@ export const useMeetingRoom = () => {
             });
             meetingRoom.value = res;
             meetingRoom.value.createdAt = formatDate(meetingRoom.value.createdAt);
-            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${meetingRoom.value.authorId}`, {
+            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${meetingRoom.value.authorId}`, {
                 method: 'GET',
                 credentials: 'include',
             })
@@ -285,7 +285,7 @@ export const useSellRoom = () => {
             sellRooms.value = res;
             sellRooms.value.forEach(async (sell) => {
                 sell.createdAt = formatDate(sell.createdAt);
-                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${sell.authorId}`, {
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${sell.authorId}`, {
                     method: 'GET',
                     credentials: 'include',
                 })
@@ -306,7 +306,7 @@ export const useSellRoom = () => {
             });
             sellRoom.value = res;
             sellRoom.value.createdAt = formatDate(sellRoom.value.createdAt);
-            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${sellRoom.value.authorId}`, {
+            const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${sellRoom.value.authorId}`, {
                 method: 'GET',
                 credentials: 'include',
             })

@@ -49,7 +49,7 @@ export const useComment = () => {
             comments.value = res;
             comments.value.forEach(async (comment) => {
                 comment.createdAt = formatDate(comment.createdAt);
-                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user?id=${comment.authorId}`, {
+                const user : any = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${comment.authorId}`, {
                     method: 'GET',
                     credentials: 'include',
                 })

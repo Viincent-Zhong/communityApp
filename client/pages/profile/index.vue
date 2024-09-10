@@ -15,7 +15,6 @@ const { user, loadUser } = useUser();
 
 onMounted(async () => {
     await loadUser();
-    console.log(user.value);
 });
 
 </script>

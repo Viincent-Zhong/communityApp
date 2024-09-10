@@ -5,6 +5,6 @@ const router = Router();
 
 router.get('/', getUser);
 
-router.get('/', getUserFromId);
+router.get('/unique', getUserFromId);
 
 export default router;
