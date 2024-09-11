@@ -7,6 +7,6 @@ router.get('/', getUser);
 
 router.get('/unique', getUserFromId);
 
-router.post('/', updateUser);
+router.put('/', updateUser);
 
 export default router;

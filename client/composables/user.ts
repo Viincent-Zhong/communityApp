@@ -42,7 +42,7 @@ export const useUser = () => {
         }
     }
 
-    const getUser = async (id: id) => {
+    const getUser = async (id: number) => {
         try {
             const res : User = await $fetch(`${runtimeConfig.public.apiUrl}/user/unique?id=${id}`, {
                 method: 'GET',
@@ -59,5 +59,24 @@ export const useUser = () => {
         }
     }
 
-    return { user, loadUser, getUser }
+    const updateUser = async (name: string, description: string) => {
+        try {
+            await $fetch(`${runtimeConfig.public.apiUrl}/user/`, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    description
+                })
+            });
+            toast.add({ severity: 'info', summary: 'Info', detail: 'Updating user...', life: 3000});
+        } catch (error) {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid inputs', life: 3000});
+        }
+    }
+
+    return { user, loadUser, getUser, updateUser };
 }

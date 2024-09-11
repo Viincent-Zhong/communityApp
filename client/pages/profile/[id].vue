@@ -7,25 +7,16 @@
             </div>
             <div class="flex flex-row justify-start pl-6 w-full">
                 <!-- Infos -->
-                <div v-if="!toggleUpdate" class="flex flex-col w-2/3">
+                <div class="flex flex-col w-2/3">
                     <h2 class="text-slate-700 text-2xl font-semibold pb-1">{{ user.name }}</h2>
                     <p class="text-slate-700 font-light pb-2">{{ user.email }}</p>
                     <p class="text-slate-700 bg-slate-300 min-h-32 rounded p-2">{{ user.description }}</p>
                 </div>
-                <!-- Update infos -->
-                <div v-if="toggleUpdate" class="flex flex-col w-2/3">
-                    <InputText v-model="user.name" class="text-slate-700 text-2xl font-semibold pb-1 w-1/3"/>
-                    <p class="text-slate-700 font-light pb-2">{{ user.email }}</p>
-                    <InputText v-model="user.description" class="w-full text-slate-700 bg-slate-300 min-h-32 rounded p-2 text-left "/>
-                </div>
-                <!-- Like + Update / Save-->
+                <!-- Like -->
                 <div class="ml-auto my-auto flex flex-col items-center">
                     <div class="flex flex-row">
                         <Avatar image="/images/heart.png" class=""/>
                         <p class="text-slate-700 ml-2 self-center">{{ user.likeCounter }} likes</p>
-                    </div>
-                    <div class="my-auto pt-16">
-                    <Button class="w-full bg-slate-500 text-slate-50 mt-6" @click="switchToggleUpdate"> {{toggleUpdate ? "Save" : "Update"}} </Button>
                     </div>
                 </div>
             </div>
@@ -61,26 +52,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
 import Avatar from 'primevue/avatar';
-import { useToast } from 'primevue/usetoast';
 import { CommentType } from '#imports';
 import { useRouter } from '#app';
 
 const router = useRouter();
-const toast = useToast()
-const toggleUpdate = ref(false);
-const switchToggleUpdate = () => {
-    if (toggleUpdate.value) {
-        updateInfos(user.value.name, user.value.description);
-    }
-    toggleUpdate.value = !toggleUpdate.value;
-}
-
-const updateInfos= (name: string, description: string) => {
-    toast.add({severity:'success', summary: 'Success', detail: 'Infos updated', life: 3000});
-}
 
 const { user, getUser } = useUser();
 const { comments, createComment, getComments } = useComment();

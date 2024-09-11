@@ -53,12 +53,9 @@ import { ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Avatar from 'primevue/avatar';
-import { useToast } from 'primevue/usetoast';
-import { CommentType } from '#imports';
 import { useRouter } from '#app';
 
 const router = useRouter();
-const toast = useToast()
 const toggleUpdate = ref(false);
 const switchToggleUpdate = () => {
     if (toggleUpdate.value) {
@@ -67,13 +64,14 @@ const switchToggleUpdate = () => {
     toggleUpdate.value = !toggleUpdate.value;
 }
 
-const updateInfos= (name: string, description: string) => {
-    toast.add({severity:'success', summary: 'Success', detail: 'Infos updated', life: 3000});
-}
 
-const { user, loadUser } = useUser();
+const { user, loadUser, updateUser } = useUser();
 const { comments, loadComments } = useComment();
 
+const updateInfos = async (name: string, description: string) => {
+    await updateUser(name, description);
+    window.location.reload();
+}
 
 onMounted(async () => {
     await loadUser();
