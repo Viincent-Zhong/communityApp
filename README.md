@@ -8,8 +8,8 @@ The users also have a profile page where they can comment on each other profile.
 # Launch the project
 
 ```
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 You need to fill out the .env files (in server and client folder)
